@@ -1,4 +1,4 @@
-package br.com.bodegami.example3;
+package br.com.bodegami.patterns.runnable.example3;
 
 public class A {
 

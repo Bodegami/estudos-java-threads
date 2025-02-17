@@ -1,4 +1,4 @@
-package br.com.bodegami.example1;
+package br.com.bodegami.patterns.runnable.example1;
 
 public class FirstRunnable {
 

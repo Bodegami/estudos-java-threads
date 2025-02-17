@@ -1,4 +1,4 @@
-package br.com.bodegami.example2;
+package br.com.bodegami.patterns.runnable.example2;
 
 public class LongWrapper {
 
