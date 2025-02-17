@@ -1,6 +1,6 @@
-package br.com.bodegami;
+package br.com.bodegami.example1;
 
-public class ExemploRunnable {
+public class FirstRunnable {
 
     public static void main(String[] args) {
 
@@ -11,10 +11,10 @@ public class ExemploRunnable {
 
 
         Thread thread = new Thread(runnable);
-        thread.setName("Thead-Async");
+        thread.setName("My_thread");
 
-        thread.start();
-
+        thread.start(); //Vai executar numa nova Thread
+        //thread.run(); //Nao vai executar numa nova Thread, mas sim na Thread principal (main thread)
     }
 
 }
