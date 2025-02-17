@@ -2,24 +2,40 @@ package br.com.bodegami.patterns.waitnotify;
 
 public class ProducerConsumer {
 
+    private static final Object lock = new Object();
+
     private static int[] buffer;
     private static int count;
 
     static class Producer {
         void produce() {
-            while (isFull(buffer)) {
-                // do nothing
+            synchronized (lock) {
+                if (isFull(buffer)) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                buffer[count++] = 1;
+                lock.notify();
             }
-            buffer[count++] = 1;
         }
     }
 
     static class Consumer {
         void consume() {
-            while (isEmpty(buffer)) {
-                // do nothing
+            synchronized (lock) {
+                if (isEmpty(buffer)) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                buffer[--count] = 0;
+                lock.notifyAll();
             }
-            buffer[--count] = 0;
         }
     }
 
@@ -46,7 +62,7 @@ public class ProducerConsumer {
         };
 
         Runnable consumeTask = () -> {
-            for (int i = 0; i < 45; i++) {
+            for (int i = 0; i < 50; i++) {
                 consumer.consume();
             }
             System.out.println("Done consuming");
