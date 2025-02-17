@@ -2,6 +2,7 @@ package br.com.bodegami.example2;
 
 public class LongWrapper {
 
+    private final Object key = new Object(); //adicionado para resolver o problema de RaceCondition
     private long l;
 
     public LongWrapper(long l) {
@@ -13,7 +14,9 @@ public class LongWrapper {
     }
 
     public void incrementValue() {
-        l = l + 1;
+        synchronized (key) {
+            l = l + 1;
+        }
     }
 
 }
