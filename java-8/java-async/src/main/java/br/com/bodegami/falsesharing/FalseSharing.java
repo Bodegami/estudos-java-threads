@@ -8,12 +8,23 @@ public class FalseSharing {
     private static VolatileLongPadded[] paddedLongs;
     private static VolatileLongUnPadded[] unPaddedLongs;
 
+    /**
+     * Exemplo de false sharing: o uso de padding evita o problema de false sharing
+     *
+     * O trecho é um exemplo de safe sharing porque utiliza padding para evitar o problema de false sharing.
+     * False sharing ocorre quando múltiplas threads acessam variáveis que estão próximas umas das outras na memória,
+     * causando contenção de cache.
+     * Ao adicionar variáveis de preenchimento (q1, q2, q3, q4, q5, q6 e q11, q12, q13, q14, q15, q16),
+     * garantimos que cada variável value está em uma linha de cache separada, evitando a contenção.
+     */
+
     public final static class VolatileLongPadded {
         public long q1, q2, q3, q4, q5, q6;
         public volatile long value = 0L;
         public long q11, q12, q13, q14, q15, q16;
     }
 
+    //Example of dirty cache line
     public final static class VolatileLongUnPadded {
         public volatile long value = 0L;
     }
